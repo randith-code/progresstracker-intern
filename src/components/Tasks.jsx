@@ -3,6 +3,7 @@ import Task from "./Task";
 import { SearchBar, Filter } from "./SearchShortFilter";
 
 const Tasks = () => {
+
     return(
         <div className="w-11/12 h-full flex flex-col items-center bg-white p-4 m-2 rounded-md">
             <div className="flex flex-col md:flex-row justify-around items-center w-11/12 py-4">

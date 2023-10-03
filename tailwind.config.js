@@ -11,6 +11,9 @@ export default {
       },
       colors: {
         'transparent-black': 'rgba(0, 0, 0, 0.5)'
+      },
+      width:{
+        '25vw': '25vw'
       }
     },
   },
