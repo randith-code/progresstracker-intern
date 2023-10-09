@@ -3,19 +3,21 @@ import NavBar from "./NavBar"
 import SlideBar from "./SlideBar"
 import MobileSlider from "../components/MobileSlider"
 import { Outlet, useNavigate } from "react-router-dom"
+import { useAuth } from "../store/Auth/AuthContextProvider"
 
 const LayoutItemsContainer = () => {
 
     const navigate = useNavigate()
     const [open, setOpen] = useState(false)
+    const { currentUser } = useAuth()
 
     useEffect(() => {
-        if ("user" in localStorage) {
-          const user = JSON.parse(localStorage.getItem("user"));
-        } else {
-            navigate('/login')
-        }
-      },[]);
+        if (!localStorage.getItem('user') || localStorage.getItem('user') == null) {
+          navigate('/login')
+        } 
+    },[]);
+
+    // console.log(JSON.stringify(currentUser))
 
     return(
         <div className='w-screen h-screen flex flex-col'>

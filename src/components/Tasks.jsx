@@ -1,14 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Task from "./Task";
-import { SearchBar, Filter } from "./SearchShortFilter";
+import { SearchBar, Sort, sortByField } from "./SearchShortFilter";
+import { db } from '../firebase/firebaseConfig'
+import { collection, getDocs, query, where } from 'firebase/firestore'
 
 const Tasks = () => {
+
+    const tasksCollectionRef = collection(db, "tasks")
+    const user = JSON.parse(localStorage.getItem("user"));
+    const [tasks, setTasks] = useState([])
+    const [value, setValue] = useState('ascending')
+    const [sortedArray, setSortedArray] = useState([]);
+
+
+    useEffect(() => {
+
+        const q = query(tasksCollectionRef, where("assignTo", "==", user.displayName))
+        const getTasks = async() => {
+            try{
+                const res = await getDocs(q)
+                setTasks(res.docs.map((doc) => ({...doc.data(), id: doc.id}))) 
+            }
+            catch{
+                console.log('tasks fetching is failed')
+            }
+        }
+
+        getTasks()
+    },[])
+
+    // console.log(tasks)
+    useEffect(() => {
+        setSortedArray(sortByField(tasks, "task", value))
+    },[value,tasks])
 
     return(
         <div className="w-11/12 h-full flex flex-col items-center bg-white p-4 m-2 rounded-md">
             <div className="flex flex-col md:flex-row justify-around items-center w-11/12 py-4">
                 <SearchBar/>
-                <Filter/>
+                <Sort setValue={setValue}/>
             </div>
             <div className="flex flex-col w-11/12 h-full p-2 gap-2 items-center bg-gray-100 rounded-md">
                 <section className=" flex w-10/12 rounded-md">
@@ -21,13 +51,17 @@ const Tasks = () => {
                     </section>
                 </section>
                 <section className="w-full max-h-60 md:max-h-96 overflow-y-scroll flex flex-col gap-2 items-center">
-                    <Task
-                        status = 'active' 
-                        task='progressTraxker project'
-                        startDate = '14.09.2023'
-                        dueDate = '20.10.2023'
-                        instructor='serverus snape'
-                    />
+                    {sortedArray.map((task) => (
+                         <Task
+                            key={task.id}
+                            status = {task.status} 
+                            task={task.task}
+                            startDate = {task.asignedDate}
+                            dueDate = {task.dueDate}
+                            instructor={task.instructor}
+                            links ={task.links}
+                        />
+                    ))}
                 </section>
             </div>
         </div>
