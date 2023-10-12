@@ -23,11 +23,13 @@ const Task =(props) => {
             </div>
             <ModelOverlay visibility={isVisible} setVisibility={setIsVisible}>
                 <TaskDetailsModel 
+                    id={props.id}
                     title={props.task} 
                     startDate={props.startDate} 
                     dueDate={props.dueDate} 
                     instructor={props.instructor}
                     links={props.links}
+                    status={props.status}
                     setVisibility={setIsVisible}
                 />
             </ModelOverlay>

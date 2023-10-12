@@ -54,6 +54,7 @@ const Tasks = () => {
                     {sortedArray.map((task) => (
                          <Task
                             key={task.id}
+                            id = {task.id}
                             status = {task.status} 
                             task={task.task}
                             startDate = {task.asignedDate}

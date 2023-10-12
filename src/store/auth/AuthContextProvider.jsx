@@ -8,7 +8,7 @@ import {
     signOut, 
     GoogleAuthProvider, 
     signInWithPopup,
-    updateProfile
+    updateProfile,
 } from 'firebase/auth'
 
 export const useAuth = () => {
