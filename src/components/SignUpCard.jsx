@@ -84,7 +84,7 @@ const SignupCard = (props) => {
                 Role
                 <select ref={roleRef} defaultValue="QA" className="border border-gray-500 rounded-md py-1 px-2" id="role">
                     <option value="QA">Quality Assurance</option>
-                    <option value="ForntEnd">Front-End</option>
+                    <option value="FrontEnd">Front-End</option>
                     <option value="BackEnd">Back-End</option>
                     <option value="DevOps">DevOps</option>
                     <option value="Mobile">Mobile</option>

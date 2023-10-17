@@ -15,9 +15,8 @@ const LayoutItemsContainer = () => {
         if (!localStorage.getItem('user') || localStorage.getItem('user') == null) {
           navigate('/login')
         } 
-    },[]);
+    });
 
-    // console.log(JSON.stringify(currentUser))
 
     return(
         <div className='w-screen h-screen flex flex-col'>

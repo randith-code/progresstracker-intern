@@ -15,18 +15,24 @@ const Tasks = () => {
 
     useEffect(() => {
 
-        const q = query(tasksCollectionRef, where("assignTo", "==", user.displayName))
-        const getTasks = async() => {
-            try{
-                const res = await getDocs(q)
-                setTasks(res.docs.map((doc) => ({...doc.data(), id: doc.id}))) 
+        if(user){
+            const q = query(tasksCollectionRef, where("assignTo", "==", user.displayName))
+            const getTasks = async() => {
+                try{
+                    const res = await getDocs(q)
+                    setTasks(res.docs.map((doc) => ({...doc.data(), id: doc.id}))) 
+                }
+                catch{
+                    console.log('tasks fetching is failed')
+                }
             }
-            catch{
-                console.log('tasks fetching is failed')
-            }
-        }
 
-        getTasks()
+            getTasks()
+        }
+        else{
+            return
+        }
+        
     },[])
 
     // console.log(tasks)

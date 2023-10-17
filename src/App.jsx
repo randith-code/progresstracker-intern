@@ -11,8 +11,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 function App() {
 
-  const scope = 'https://www.googleapis.com/auth/documents'
-
   return (
     <>
     <BrowserRouter>
